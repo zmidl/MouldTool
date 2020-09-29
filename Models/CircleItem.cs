@@ -12,8 +12,28 @@ namespace MouldTool.Models
    {
       public int Id { get; set; }
 
-      public int Radius { get; set; } = 150;
+      public int Radius
+      {
+         get => Convert.ToInt32(this.Circie.Width);
+         set
+         {
+            this.Circie.Width = value;
+            this.Circie.Height = value;
+         }
+      }
 
-      public Ellipse Circie { get; set; } = new Ellipse { StrokeDashArray=new System.Windows.Media.DoubleCollection {8,5 },Stroke=Brushes.White };
+      public Ellipse Circie { get; set; } = new Ellipse { StrokeDashArray = new DoubleCollection { 8, 5 }, Stroke = Brushes.White };
+
+      public CircleItem(int id,int radius)
+      {
+         this.Id = id;
+         this.Radius = radius;
+      }
+
+      public void Copy(CircleItem origin)
+      {
+         this.Id = origin.Id;
+         this.Radius = origin.Radius;
+      }
    }
 }

@@ -45,6 +45,10 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Assets\System.Windows.Interactivity.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -67,6 +71,7 @@
     <Compile Include="Models\Info.cs" />
     <Compile Include="Models\Notify.cs" />
     <Compile Include="Models\ShapeItem.cs" />
+    <Compile Include="Views\Converters\TypeToInt.cs" />
     <Compile Include="Views\ShapePlate.xaml.cs">
       <DependentUpon>ShapePlate.xaml</DependentUpon>
     </Compile>
@@ -122,6 +127,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Assets\Microsoft.Expression.Effects.dll" />
+    <Content Include="Assets\System.Windows.Interactivity.dll" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

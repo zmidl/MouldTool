@@ -15,10 +15,11 @@ namespace MouldTool.Views
    /// </summary>
    public partial class ShapePlate : UserControl
    {
-      private ObservableCollection<ShapeItem> shapeItems;
+      public ObservableCollection<ShapeItem> ShapeItems { get => (ObservableCollection<ShapeItem>)GetValue(ShapeItemsProperty); set => SetValue(ShapeItemsProperty, value); }
+      public static readonly DependencyProperty ShapeItemsProperty = DependencyProperty.Register(nameof(ShapeItems), typeof(ObservableCollection<ShapeItem>), typeof(ShapePlate), new PropertyMetadata(null, ShapeItemsCallback));
 
-      public object ShapeItems { get => (ObservableCollection<ShapeItem>)GetValue(MyPropertyProperty); set => SetValue(MyPropertyProperty, value); }
-      public static readonly DependencyProperty MyPropertyProperty = DependencyProperty.Register("ShapeItems", typeof(object), typeof(ShapePlate), new PropertyMetadata(null, ShapeItemsCallback));
+      public ObservableCollection<CircleItem> CircleItems { get => (ObservableCollection<CircleItem>)GetValue(CircleItemsProperty); set => SetValue(CircleItemsProperty, value); }
+      public static readonly DependencyProperty CircleItemsProperty = DependencyProperty.Register(nameof(CircleItems), typeof(ObservableCollection<CircleItem>), typeof(ShapePlate), new PropertyMetadata(null, CircleItemsCallback));
 
       public ShapePlate()
       {
@@ -28,18 +29,38 @@ namespace MouldTool.Views
       private static void ShapeItemsCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
       {
          var shapePlate = d as ShapePlate;
-         shapePlate.shapeItems = e.NewValue as ObservableCollection<ShapeItem>;
-         shapePlate.shapeItems.CollectionChanged += (s, a) =>
+         shapePlate.ShapeItems = e.NewValue as ObservableCollection<ShapeItem>;
+         shapePlate.ShapeItems.CollectionChanged += (s, a) =>
          {
-            if (a.OldItems == null) shapePlate.AddItem(a.NewItems[0] as ShapeItem);
+            if (a.OldItems == null) shapePlate.AddShape(a.NewItems[0] as ShapeItem);
          };
       }
 
-      private void AddItem(ShapeItem item)
+      private static void CircleItemsCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
+      {
+         var shapePlate = d as ShapePlate;
+         shapePlate.CircleItems = e.NewValue as ObservableCollection<CircleItem>;
+         shapePlate.CircleItems.CollectionChanged += (s, a) =>
+         {
+            if (a.OldItems == null) shapePlate.AddCircle(a.NewItems[0] as CircleItem);
+         };
+      }
+
+      private void AddShape(ShapeItem item)
       {
          this.EditItem(item);
          this.Plate.Children.Add(item.Shape);
          item.PropertyModified += Item_PropertyModified;
+      }
+
+      private void AddCircle(CircleItem item)
+      {
+         var x = Convert.ToInt32(this.Plate.ActualWidth / 2 - item.Circie.Height / 2);
+         var y = Convert.ToInt32(this.Plate.ActualHeight / 2 - item.Circie.Width / 2);
+         Canvas.SetLeft(item.Circie, y);
+         Canvas.SetTop(item.Circie, x);
+         this.Plate.Children.Add(item.Circie);
+         //item.PropertyModified += Item_PropertyModified;
       }
 
       private void EditItem(ShapeItem item)
@@ -49,10 +70,11 @@ namespace MouldTool.Views
          Canvas.SetLeft(item.Shape, y);
          Canvas.SetTop(item.Shape, x);
 
-         item.Shape.RenderTransformOrigin = new Point(0.5, 0.5);
-         TransformGroup transGroup = new TransformGroup ();
-         transGroup.Children.Add(new RotateTransform(item.Rotate));
-         item.Shape.RenderTransform = transGroup;
+         
+         //item.Shape.RenderTransformOrigin = new Point(0.5, 0.5);
+         //TransformGroup transGroup = new TransformGroup();
+         //transGroup.Children.Add(new RotateTransform(item.Rotate));
+         //item.Shape.RenderTransform = transGroup;
       }
 
       private void Item_PropertyModified(object sender, ShapeItem e)

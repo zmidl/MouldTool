@@ -9,45 +9,18 @@ namespace MouldTool.ViewModels
 {
    public class MainWindowViewmodel : ViewModel
    {
-      //public Action<Shape, int, int> AddItem { get; set; }
       public ObservableCollection<ShapeItem> ShapeItems { get; set; } = new ObservableCollection<ShapeItem>();
+
       public ObservableCollection<CircleItem> CircleItems { get; set; } = new ObservableCollection<CircleItem>();
 
-      public ShapeItem Current { get; set; }
+      public ShapeItem CurrentShape { get; set; } = new ShapeItem(-1, Models.Type.Rectangle, 50, 50, 200, 30, 0);
 
-      public int ShapeIndex { get; set; } = 0;
-
-      public int Theta { get; set; } = 30;
-
-      public int Width { get; set; } = 50;
-
-      public int Height { get; set; } = 50;
-
-      public int Angle { get; set; } = 0;
+      public CircleItem CurrentCircle { get; set; } = new CircleItem(-1, 400);
 
       public RelayCommand AddShape => new RelayCommand(() =>
       {
-         Shape shape = null;
-         switch (this.ShapeIndex)
-         {
-            case 0:
-               {
-                  shape = new Rectangle { Width = this.Width, Height = this.Height, Stroke = Brushes.White };
-                  break;
-               }
-            case 1:
-               {
-                  shape = new Ellipse { Width = this.Width, Height = this.Height, Stroke = Brushes.White };
-                  break;
-               }
-            case 2:
-               {
-                  shape = new RegularPolygon {PointCount=3, Width = this.Width, Height = this.Height, Stroke = Brushes.White };
-                  break;
-               }
-         }
-
-         this.ShapeItems.Add(new ShapeItem(this.ShapeItems.Count, shape, 150, this.Theta, this.Angle));
+         this.CurrentShape.Radius = this.CurrentCircle.Radius/2;
+         this.ShapeItems.Add(new ShapeItem(this.CurrentShape));
       });
 
       public RelayCommand Change => new RelayCommand(() =>
@@ -56,5 +29,30 @@ namespace MouldTool.ViewModels
          this.ShapeItems[0].Height = 20;
          this.ShapeItems[0].Rotate = 45;
       });
+
+      public RelayCommand AddCircle => new RelayCommand(() => this.CircleItems.Add(new CircleItem(this.CalcCircleId(), this.CurrentCircle.Radius)));
+
+      public RelayCommand ShapeSelectionChanged => new RelayCommand((o) => 
+      {
+         var shapeItem = o as ShapeItem;
+         this.CurrentShape.Copy(shapeItem);
+         this.RaiseProperty(nameof(this.CurrentShape));
+      });
+
+      public RelayCommand CircleSelectionChanged => new RelayCommand((o) => 
+      {
+         this.CurrentCircle.Copy(o as CircleItem);
+         this.RaiseProperty(nameof(this.CurrentCircle));
+      });
+
+      private int CalcCircleId()
+      {
+         var id = this.CircleItems.Count;
+         for (int i = 0; i < this.CircleItems.Count; i++)
+         {
+            if (id == this.CircleItems[i].Id) id++;
+         }
+         return id;
+      }
    }
 }
