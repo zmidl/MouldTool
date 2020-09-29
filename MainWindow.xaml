@@ -1,0 +1,83 @@
+﻿<Window 
+  x:Class="MouldTool.MainWindow"
+  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+  xmlns:local="clr-namespace:MouldTool.Views"
+  mc:Ignorable="d" Background="Gray"
+  xmlns:vm="clr-namespace:MouldTool.ViewModels"
+  Title="MainWindow" Height="650" Width="1000">
+  <Window.DataContext>
+    <vm:MainWindowViewmodel/>
+  </Window.DataContext>
+  <Window.Resources>
+    <Style TargetType="Button">
+      <Setter Property="Width" Value="80"/>
+      <Setter Property="Height" Value="30"/>
+      <Setter Property="HorizontalAlignment" Value="Right"/>
+    </Style>
+  </Window.Resources>
+  <Grid>
+    <local:ShapePlate x:Name="ShapePlate1" ShapeItems="{Binding ShapeItems,Mode=TwoWay}" HorizontalAlignment="Left" Margin="0,610,0,0"/>
+    <ListBox ItemsSource="{Binding ShapeItems}" SelectedItem="{Binding Current}" Background="Transparent" HorizontalAlignment="Right" VerticalAlignment="Top" Width="370" Height="270" Margin="0,10,10,280">
+      <ListBox.ItemTemplate>
+        <DataTemplate>
+          <StackPanel Orientation="Horizontal">
+            <TextBlock Text="{Binding Index,StringFormat=ID：{0}}" Margin="20,0,0,0"/>
+            <TextBlock Text="{Binding Width,StringFormat=宽度：{0}}" Margin="20,0,0,0"/>
+            <TextBlock Text="{Binding Shape.Height,StringFormat=高度：{0}}" Margin="20,0,0,0"/>
+            <TextBlock Text="{Binding Theta,StringFormat=夹角：{0}}" Margin="20,0,0,0"/>
+            <TextBlock Text="{Binding Rotate,StringFormat=旋转：{0}}" Margin="20,0,0,0"/>
+          </StackPanel>
+        </DataTemplate>
+      </ListBox.ItemTemplate>
+    </ListBox>
+    <Grid Width="370" Height="120" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,290,10,0">
+      <Grid.Resources>
+        <Style TargetType="TextBlock">
+          <Setter Property="FontSize" Value="16"/>
+          <Setter Property="HorizontalAlignment" Value="Left"/>
+          <Setter Property="VerticalAlignment" Value="Top"/>
+        </Style>
+
+        <Style TargetType="TextBox">
+          <Setter Property="HorizontalAlignment" Value="Left"/>
+          <Setter Property='VerticalAlignment' Value="Top"/>
+          <Setter Property="Width" Value="60"/>
+          <Setter Property="Height" Value="30"/>
+        </Style>
+      </Grid.Resources>
+      <TextBlock Text="图形：" Margin="0,3,0,0"/>
+      <ComboBox SelectedIndex="{Binding ShapeIndex,FallbackValue=0}" HorizontalAlignment="Left" VerticalAlignment="Top" Width="60" Height="30" Margin="50,0,0,0">
+        <ComboBoxItem Content="矩形"/>
+        <ComboBoxItem Content="圆形"/>
+        <ComboBoxItem Content="山形"/>
+      </ComboBox>
+
+      <TextBlock Text="半径：" Margin="130,3,0,0"/>
+      <ComboBox HorizontalAlignment="Left" VerticalAlignment="Top" Width="60" Height="30" Margin="180,0,0,0"/>
+
+      <TextBlock Text="夹角：" Margin="260,4,0,0"/>
+      <TextBox Text="{Binding Theta,FallbackValue=30}" Margin="310,0,0,0"/>
+
+      <TextBlock Text="角度：" Margin="0,43,0,0"/>
+      <TextBox Text="{Binding Angle,FallbackValue=0}" Margin="50,40,0,0"/>
+
+      <TextBlock Text="宽度：" Margin="130,43,0,0"/>
+      <TextBox Text="{Binding Width}" Margin="180,40,0,0"/>
+
+      <TextBlock Text="高度：" Margin="260,43,0,0"/>
+      <TextBox Text="{Binding Height}" Margin="310,40,0,0"/>
+      
+      <Button Content="修改图形" VerticalAlignment="Top" Margin="10,86,90,0" Command="{Binding AddShape}" />
+      <Button Content="添加图形" VerticalAlignment="Top" Margin="10,86,0,0" Command="{Binding AddShape}"/>
+    </Grid>
+    
+    <ListBox Background="Transparent" HorizontalAlignment="Right" Width="370" Margin="0,420,10,50"/>
+    <TextBlock Text="半径：" FontSize="16" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,330,15"/>
+    <TextBox Text="{Binding Radius}" Width="60" Height="30" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,270,10"/>
+    <Button Content="添加半径" VerticalAlignment="Bottom" Margin="0,0,10,10" Command="{Binding Change}"/>
+    <Button x:Name="Button2" Content="修改半径" VerticalAlignment="Bottom" Margin="0,0,100,10" />
+  </Grid>
+</Window>

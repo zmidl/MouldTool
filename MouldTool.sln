@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30503.244
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MouldTool", "MouldTool.csproj", "{E42F9BD1-2884-4272-8EA0-2ED13EA0373E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E42F9BD1-2884-4272-8EA0-2ED13EA0373E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E42F9BD1-2884-4272-8EA0-2ED13EA0373E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E42F9BD1-2884-4272-8EA0-2ED13EA0373E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E42F9BD1-2884-4272-8EA0-2ED13EA0373E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {F74CF9E7-02EA-4BE5-91A8-EF8BCD826B14}
+	EndGlobalSection
+EndGlobal
