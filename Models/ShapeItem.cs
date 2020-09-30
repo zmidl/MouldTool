@@ -8,6 +8,7 @@ namespace MouldTool.Models
 {
    public class ShapeItem : Notify
    {
+      private readonly Brush fillColor=new SolidColorBrush(Color.FromArgb(2, 128, 128, 128));
       public event EventHandler<ShapeItem> PropertyModified;
 
       public int Index { get; set; }
@@ -28,17 +29,17 @@ namespace MouldTool.Models
             {
                case Type.Rectangle:
                {
-                  this.Shape = new Rectangle { Width = this.Width, Height = this.Height, Stroke = Brushes.White };
+                  this.Shape = new Rectangle { Width = this.Width, Height = this.Height, Stroke = Brushes.DarkGray, Fill = this.fillColor };
                   break;
                }
                case Type.Ellipse:
                {
-                  this.Shape = new Ellipse { Width = this.Width, Height = this.Height, Stroke = Brushes.White };
+                  this.Shape = new Ellipse { Width = this.Width, Height = this.Height, Stroke = Brushes.DarkGray , Fill = this.fillColor };
                   break;
                }
                case Type.Triangle:
                {
-                  this.Shape = new RegularPolygon { PointCount = 3, Width = this.Width, Height = this.Height, Stroke = Brushes.White };
+                  this.Shape = new RegularPolygon { PointCount = 3, Width = this.Width, Height = this.Height, Stroke = Brushes.DarkGray, Fill = this.fillColor };
                   break;
                }
                default: break;
@@ -91,6 +92,7 @@ namespace MouldTool.Models
          {
             this.theta = value;
             this.RaiseProperty(nameof(this.theta));
+            this.PropertyModified?.Invoke(this, null);
          }
       }
 
@@ -133,6 +135,14 @@ namespace MouldTool.Models
          this.CircleItem = origin.CircleItem;
          this.Theta = origin.Theta;
          this.Index = origin.Index;
+      }
+
+      public void SetHighlight(bool isHightlight)
+      {
+         var thick = isHightlight ? 3d : 1d;
+         var brush = isHightlight ? Brushes.White : Brushes.DarkGray;
+         this.Shape.StrokeThickness = thick;
+         this.Shape.Stroke = brush;
       }
    }
 
