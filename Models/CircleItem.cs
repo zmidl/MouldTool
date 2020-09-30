@@ -8,23 +8,24 @@ using System.Windows.Shapes;
 
 namespace MouldTool.Models
 {
-   public class CircleItem
+   public class CircleItem:Notify
    {
       public int Id { get; set; }
 
       public int Radius
       {
-         get => Convert.ToInt32(this.Circie.Width);
+         get => Convert.ToInt32(this.Circie.Width / 2);
          set
          {
-            this.Circie.Width = value;
-            this.Circie.Height = value;
+            this.Circie.Width = value * 2;
+            this.Circie.Height = value * 2;
+            this.RaiseProperty(nameof(this.Radius));
          }
       }
 
       public Ellipse Circie { get; set; } = new Ellipse { StrokeDashArray = new DoubleCollection { 8, 5 }, Stroke = Brushes.White };
 
-      public CircleItem(int id,int radius)
+      public CircleItem(int id, int radius)
       {
          this.Id = id;
          this.Radius = radius;

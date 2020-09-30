@@ -81,8 +81,6 @@ namespace MouldTool.Models
          }
       }
 
-      public int Radius { get; set; }
-
       public int RadiusNo { get; set; }
 
       private int theta = 30;
@@ -110,13 +108,15 @@ namespace MouldTool.Models
          }
       }
 
-      public ShapeItem(int index, Type type, int width, int height, int radius, int angle, int rotate)
+      public CircleItem CircleItem { get; set; }
+
+      public ShapeItem(int index, Type type, int width, int height, int angle, int rotate,CircleItem circleItem)
       {
          this.Type = type;
          this.Rotate = rotate;
          this.Width = width;
          this.Height = height;
-         this.Radius = radius;
+         this.CircleItem = circleItem;
          this.Theta = angle;
          this.Index = index;
       }
@@ -130,7 +130,7 @@ namespace MouldTool.Models
          this.Rotate = origin.Rotate;
          this.Width = origin.Width;
          this.Height = origin.Height;
-         this.Radius = origin.Radius;
+         this.CircleItem = origin.CircleItem;
          this.Theta = origin.Theta;
          this.Index = origin.Index;
       }

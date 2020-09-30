@@ -65,8 +65,8 @@ namespace MouldTool.Views
 
       private void EditItem(ShapeItem item)
       {
-         var x = Convert.ToInt32(item.Radius * Math.Cos(item.Theta * Math.PI / 180) + this.Plate.ActualWidth / 2 - item.Shape.Height / 2);
-         var y = Convert.ToInt32(item.Radius * Math.Sin(item.Theta * Math.PI / 180) + this.Plate.ActualHeight / 2 - item.Shape.Width / 2);
+         var x = Convert.ToInt32(item.CircleItem.Radius * Math.Cos(item.Theta * Math.PI / 180) + this.Plate.ActualWidth / 2 - item.Shape.Height / 2);
+         var y = Convert.ToInt32(item.CircleItem.Radius * Math.Sin(item.Theta * Math.PI / 180) + this.Plate.ActualHeight / 2 - item.Shape.Width / 2);
          Canvas.SetLeft(item.Shape, y);
          Canvas.SetTop(item.Shape, x);
 

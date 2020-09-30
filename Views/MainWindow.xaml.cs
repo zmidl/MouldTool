@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 
-namespace MouldTool
+namespace MouldTool.Views
 {
    /// <summary>
    /// MainWindow.xaml 的交互逻辑
